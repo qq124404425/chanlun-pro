@@ -477,6 +477,17 @@ def kcharts_frequency_h_l_map(
             "5m": "1m",
             "3m": "1m",
         },
+        "spot": {
+            "w": "d",
+            "d": "4h",
+            "4h": "30m",
+            "60m": "15m",
+            "30m": "5m",
+            "15m": "5m",
+            "10m": "2m",
+            "5m": "1m",
+            "3m": "1m",
+        },
     }
 
     try:
@@ -643,6 +654,8 @@ def cl_data_to_tv_chart(cd: ICL, config: dict, to_frequency: str = None):
         elif market == "futures":
             klines = exchange.convert_futures_kline_frequency(klines, frequency)
         elif market == "currency":
+            klines = exchange.convert_currency_kline_frequency(klines, frequency)
+        elif market == "spot":
             klines = exchange.convert_currency_kline_frequency(klines, frequency)
         else:
             raise Exception(f"图表周期数据转换，不支持的市场 {market}")

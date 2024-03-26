@@ -45,6 +45,8 @@ class ExchangeDB(Exchange):
             return "AAPL"
         elif self.market == "currency":
             return "BTC/USDT"
+        elif self.market == "spot":
+            return "BTC/USDT"
         return ""
 
     def support_frequencys(self):
@@ -96,6 +98,20 @@ class ExchangeDB(Exchange):
                 "5m": "5m",
             }
         elif self.market == "currency":
+            return {
+                "w": "Week",
+                "d": "Day",
+                "4h": "4H",
+                "60m": "1H",
+                "30m": "30m",
+                "15m": "15m",
+                "10m": "5m",
+                "5m": "5m",
+                "3m": "3m",
+                "2m": "2m",
+                "1m": "1m",
+            }
+        elif self.market == "spot":
             return {
                 "w": "Week",
                 "d": "Day",
@@ -229,6 +245,8 @@ class ExchangeDB(Exchange):
         """
         if self.market == "currency":
             return convert_currency_kline_frequency(klines, to_f)
+        elif self.market == "spot":
+            return convert_futures_kline_frequency(klines, to_f)
         elif self.market == "futures":
             return convert_futures_kline_frequency(klines, to_f)
         elif self.market == "us":

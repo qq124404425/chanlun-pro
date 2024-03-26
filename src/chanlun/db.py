@@ -207,6 +207,8 @@ class DB(object):
             table_name = f"{market}_klines_{stock_code[0]}"
         elif market == "currency":
             table_name = f"{market}_klines_{stock_code}"
+        elif market == "spot":
+            table_name = f"{market}_klines_{stock_code}"
         elif market == "futures":
             table_name = f"{market}_klines_{stock_code}"
         else:

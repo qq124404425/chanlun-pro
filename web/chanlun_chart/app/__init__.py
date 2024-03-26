@@ -125,6 +125,7 @@ def create_app(test_config=None):
         "us": list(get_exchange(Market.US).support_frequencys().keys()),
         "futures": list(get_exchange(Market.FUTURES).support_frequencys().keys()),
         "currency": list(get_exchange(Market.CURRENCY).support_frequencys().keys()),
+        'spot': list(get_exchange(Market.SPOT).support_frequencys().keys()),
     }
 
     # 各个交易所默认的标的
@@ -134,6 +135,7 @@ def create_app(test_config=None):
         "us": get_exchange(Market.US).default_code(),
         "futures": get_exchange(Market.FUTURES).default_code(),
         "currency": get_exchange(Market.CURRENCY).default_code(),
+        'spot': get_exchange(Market.SPOT).default_code(),
     }
 
     # 各个市场的交易时间
@@ -143,6 +145,7 @@ def create_app(test_config=None):
         "us": "0400-0931,0930-1631,1600-2001",
         "futures": "24x7",
         "currency": "24x7",
+        'spot': '24x7',
     }
 
     # 各个交易所的时区 统一时区
@@ -152,6 +155,7 @@ def create_app(test_config=None):
         "us": "America/New_York",
         "futures": "Asia/Shanghai",
         "currency": "Asia/Shanghai",
+        'spot': 'Asia/Shanghai',
     }
 
     market_types = {
@@ -160,6 +164,7 @@ def create_app(test_config=None):
         "us": "stock",
         "futures": "futures",
         "currency": "crypto",
+        'spot': 'crypto',
     }
 
     # 记录请求次数，超过则返回 no_data
@@ -199,6 +204,7 @@ def create_app(test_config=None):
             | set(market_frequencys["us"])
             | set(market_frequencys["futures"])
             | set(market_frequencys["currency"])
+            | set(market_frequencys['spot'])
         )
         supportedResolutions = [v for k, v in frequency_maps.items() if k in frequencys]
         return {
@@ -214,6 +220,7 @@ def create_app(test_config=None):
                 {"value": "us", "name": "美股", "desc": "美股"},
                 {"value": "futures", "name": "期货", "desc": "期货"},
                 {"value": "currency", "name": "数字货币", "desc": "数字货币"},
+                {'value': "spot", 'name': "数字货币现货", 'desc': "数字货币现货"},
             ],
         }
 

@@ -8,6 +8,7 @@ from chanlun.exchange.exchange_db import ExchangeDB
 from chanlun.exchange.exchange_tdx_hk import ExchangeTDXHK
 from chanlun.exchange.exchange_tdx_futures import ExchangeTDXFutures
 from chanlun.exchange.exchange_binance import ExchangeBinance
+from chanlun.exchange.exchange_binancespot import ExchangeBinanceSpot
 from chanlun.exchange.exchange_zb import ExchangeZB
 
 from chanlun.exchange.exchange_ib import ExchangeIB
@@ -28,6 +29,7 @@ class Market(Enum):
     FUTURES = "futures"
     CURRENCY = "currency"
     US = "us"
+    SPOT = "spot"
 
 
 def get_exchange(market: Market) -> Exchange:
@@ -89,7 +91,8 @@ def get_exchange(market: Market) -> Exchange:
             g_exchange_obj[market.value] = ExchangeDB("currency")
         else:
             raise Exception(f"不支持的数字货币交易所 {config.EXCHANGE_CURRENCY}")
-
+    elif market == Market.SPOT:
+        g_exchange_obj[market.value] = ExchangeBinanceSpot()
     elif market == Market.US:
         # 美股 交易所
         if config.EXCHANGE_US == "alpaca":

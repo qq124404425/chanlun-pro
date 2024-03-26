@@ -55,6 +55,7 @@
                     <option value="futures">期货</option>
                     <option value="us">美股</option>
                     <option value="currency">数字货币</option>
+                    <option value="spot">数字货币现货</option>
                   </select>
                 </label>
               </div>
@@ -161,6 +162,7 @@
         us_code: "{{ market_default_codes.us }}",
         futures_code: "{{ market_default_codes.futures }}",
         currency_code: "{{ market_default_codes.currency }}",
+        spot_code: "{{ market_default_codes.spot }}",
       };
 
       if (layui.data("tv_chart")) {
@@ -338,14 +340,14 @@
           }
           // 删除时间最大的几个画图对象
           for (const c_key of [
-            "fxs",
+            //"fxs",
             "bis",
-            "xds",
-            "zsds",
-            "bi_zss",
-            "xd_zss",
-            "bcs",
-            "mmds",
+            // "xds",
+            // "zsds",
+            // "bi_zss",
+            // "xd_zss",
+            // "bcs",
+            // "mmds",
           ]) {
             if (obj_charts[symbol_key][c_key] != undefined) {
               obj_charts[symbol_key][c_key].sort(function (a, b) {
@@ -366,7 +368,8 @@
               obj_charts[symbol_key][c_key] = [];
             }
           }
-
+        
+            /*
           //** 画分型
           bars_result.fxs.forEach(function (fx) {
             if (fx["points"][0].time >= from) {
@@ -439,6 +442,7 @@
               });
             }
           });
+            /*
           // 画线段
           bars_result.xds.forEach(function (xd) {
             if (xd["points"][0].time >= from) {
@@ -669,6 +673,7 @@
               }
             }
           });
+          **/
           const code_end = performance.now();
           console.log(`${symbol_key} 运行时间:${code_end - code_start} 毫秒`);
         }
